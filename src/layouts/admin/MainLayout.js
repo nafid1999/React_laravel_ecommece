@@ -24,7 +24,7 @@ const MainLayout = (props) => {
                 <div id="layoutSidenav_content">
                     <main>
                         <Switch>
-                            
+
                             <Route path="/admin/profile" name="profile" exact={true}   component={Profile}  />
                             <Route path="/admin/dashboard" name="dashboard" exact={true}   component={Dashboard}  />
                             <Redirect from="/admin" to="/admin/dashboard"/>
