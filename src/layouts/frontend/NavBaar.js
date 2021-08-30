@@ -3,7 +3,7 @@ import { Navbar, Nav, Container } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 const NavBaar = () => {
     return (
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
             <Container>
                 <Navbar.Brand href="#home">BoukiShope</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
