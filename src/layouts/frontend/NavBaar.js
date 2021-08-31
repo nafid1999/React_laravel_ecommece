@@ -1,5 +1,5 @@
-import React from 'react'
-import { Navbar, Nav, Container,Button } from 'react-bootstrap'
+import React ,{useState,useEffect} from 'react'
+import { Navbar, Nav, Container,Button, Spinner } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import swal from 'sweetalert'
@@ -8,7 +8,29 @@ import { useHistory } from 'react-router'
 var AuthButton=''
 const NavBaar = () => {
 
-    const history=useHistory()
+  const [authenticated, setAuthenticated] = useState(false);
+  const [loading, setloading] = useState(true)
+  const history =useHistory()
+
+  useEffect(() => {
+
+    axios.get("/api/checkAuthentication").then(res=>{
+
+       if(res.data.status===200){
+          setAuthenticated(true)
+
+       }
+       setloading(false)
+
+    }).catch(err=>{
+        if(err.response.status===401)
+          setAuthenticated(false)
+          setloading(false)
+
+    
+    });
+
+  },[])
 
     const handlLogout=()=>{
 
@@ -20,13 +42,11 @@ const NavBaar = () => {
                         history.push("/")
                 }
                 })
-
-       
-            
+   
     }
 
 
-     if(!localStorage.getItem("token")){
+     if(!authenticated){
         AuthButton=
         <Nav>
             <Link to="/register" className="nav-link">Register</Link>
@@ -35,9 +55,17 @@ const NavBaar = () => {
      }else{
         AuthButton=
         <Nav>
-            <Button  className="btn btn-danger" onClick={handlLogout}>  logout     </Button>
+            <Button  className="btn btn-danger" onClick={handlLogout}> logout  </Button>
          </Nav>
      }
+
+     if(loading){
+        return (
+          <div className="text-center py-5">
+                <Spinner animation="border"/>
+            </div>
+        )
+      }
     return (
         <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
             <Container>

@@ -1,9 +1,11 @@
 import axios from 'axios';
 import React,{useState,useEffect}from 'react'
-import { Redirect, Route, useHistory } from 'react-router-dom'
+import { Redirect, Route } from 'react-router-dom'
 import MainLayout from './layouts/admin/MainLayout'
 import { Spinner } from 'react-bootstrap';
 import swal from 'sweetalert';
+import { useHistory } from 'react-router'
+
 
 const AdminRoute = (props) => {
 
@@ -24,7 +26,6 @@ const AdminRoute = (props) => {
        setloading(false)
 
     }).catch(err=>{
-        if(err.response.status===401)
           swal("Warning",err.response.statusText,"warning")
        history.push("/")
     
