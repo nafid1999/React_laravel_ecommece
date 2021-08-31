@@ -5,11 +5,17 @@ import Home from './components/frontend/Home';
 import Login from './components/frontend/auth/Login';
 import Register from './components/frontend/auth/Register';
 import axios from "axios"
+import AdminRoute from './AdminRoute';
 
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL="http://localhost:8000/"
+axios.defaults.baseURL="http://127.0.0.1:8000/"
 axios.defaults.headers.post['Accept']="application/json"
 axios.defaults.headers.post['Content-Type']="application/json"
+axios.interceptors.request.use(function(config){
+  let token=localStorage.getItem('token');
+  config.headers.Authorization=token? `Bearer  ${token}` :""
+  return config;
+})
 
 function App() {
 
@@ -18,12 +24,17 @@ function App() {
 
       <Router>
           <Switch>
-              {/* <Route path="/admin/dashboard" exact  component={(props) => (<MainLayout {...props} data={"dashboarbd page"}/>)} /> */}
               <Route path="/"  exact={true} component={Home}  />
-              <Route path="/login"  exact={true} component={Login}  />
-              <Route path="/register"  exact={true} component={Register}  />
+             
+              <Route path="/login">
+               {localStorage.getItem('token') ? <Redirect to="/" />: <Login/>}
+              </Route>
+              <Route path="/register">
+               {localStorage.getItem('token') ? <Redirect to="/" />: <Register/>}
+              </Route>
 
-              <Route path="/admin/:Subpath"  exact={true} render={(props)=><MainLayout {...props}/>}  />
+              {/* <Route path="/admin/:Subpath"  exact={true} render={(props)=><MainLayout {...props}/>}  /> */}
+              <AdminRoute path="/admin/:Subpath"  />
               <Redirect from="/admin" to="/admin/dashboard"/>
 
           </Switch>
