@@ -52,7 +52,7 @@ const AdminRoute = (props) => {
              history.push("/")
       }else if(err.response.status===401){
             swal("Unthorized",err.response.data.message,"warning")
-            history.push("/login")
+               history.push("/login")
         }
     })
 
@@ -61,9 +61,13 @@ const AdminRoute = (props) => {
   
   if(loading){
     return (
-      <div className="text-center py-5">
-            <Spinner animation="border" />
+    <div class="text-center py-5" >
+        <div class="spinner-grow text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
         </div>
+    </div>
+
+     
     )
   }
   console.log(props)
