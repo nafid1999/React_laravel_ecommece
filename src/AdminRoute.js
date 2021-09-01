@@ -12,10 +12,31 @@ const AdminRoute = (props) => {
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setloading] = useState(true)
   const history =useHistory()
+//interceptors
+// axios.interceptors.response.use(response=>console.log("respone"),err=>{
+//   console.log("interceptors")
+//   if(err.response.status===401){
+//      swal("Unthorized",err.response.data.message,"warning")
+//     history.push("/")
+//   }
+//   return Promise.reject(err)
+// })
 
+// axios.interceptors.response.use(response=>console.log("respnse2"),err=>{
+//   console.log("interceptors")
+
+//    if(err.response.status===403){
+//       swal("Forbedden",err.response.data.message,"warning")
+//      history.push("/")
+//    }
+//    return Promise.reject(err)
+
+// })
   useEffect(() => {
+    console.log("hhhhoohhhh")
 
     axios.get("/api/checkAuthentication").then(res=>{
+      console.log("hhhhoohhhh")
 
        if(res.data.status===200){
           console.log("hhhhhhhh")
@@ -26,13 +47,18 @@ const AdminRoute = (props) => {
        setloading(false)
 
     }).catch(err=>{
-          swal("Warning",err.response.statusText,"warning")
-       history.push("/")
-    
-    });
+      if(err.response.status===403){
+              swal("Forbedden",err.response.data.message,"warning")
+             history.push("/")
+      }else if(err.response.status===401){
+               swal("Unthorized",err.response.data.message,"warning")
+               history.push("/login")
+        }
+    })
 
   },[])
 
+  
   if(loading){
     return (
       <div className="text-center py-5">

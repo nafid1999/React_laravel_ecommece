@@ -11,13 +11,13 @@ import { useHistory } from 'react-router'
 import { Spinner } from 'react-bootstrap';
 
 
-
-
+//config for axios
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL="http://127.0.0.1:8000/"
 axios.defaults.headers.post['Accept']="application/json"
 axios.defaults.headers.post['Content-Type']="application/json"
 
+//interceptor when the user is trying to achieve an authenticated page
 axios.interceptors.request.use(function(config){
   let token=localStorage.getItem('token');
   config.headers.Authorization=token? `Bearer  ${token}` :""
@@ -26,37 +26,37 @@ axios.interceptors.request.use(function(config){
 
 function App() {
 
-  const [authenticated, setAuthenticated] = useState(false);
-  const [loading, setloading] = useState(true)
-  const history =useHistory()
+  // const [authenticated, setAuthenticated] = useState(false);
+  // const [loading, setloading] = useState(true)
+  // const history =useHistory()
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    axios.get("/api/checkAuthentication").then(res=>{
+  //   axios.get("/api/checkAuthentication").then(res=>{
 
-       if(res.data.status===200){
-          setAuthenticated(true)
+  //      if(res.data.status===200){
+  //         setAuthenticated(true)
 
-       }
-       setloading(false)
+  //      }
+  //      setloading(false)
 
-    }).catch(err=>{
-        if(err.response.status===401)
-          setAuthenticated(false)
-          setloading(false)
+  //   }).catch(err=>{
+        
+  //       if(err.response.status===401)
+  //         setAuthenticated(false)
+  //         setloading(false)
 
-    
-    });
+  //   });
 
-  },[])
+  // },[])
 
-  if(loading){
-    return (
-      <div className="text-center py-5">
-            <Spinner animation="border"/>
-        </div>
-    )
-  }
+  // if(loading){
+  //   return (
+  //     <div className="text-center py-5">
+  //           <Spinner animation="border"/>
+  //       </div>
+  //   )
+  // }
   return (
     <div className="App" >
 
@@ -65,10 +65,10 @@ function App() {
               <Route path="/"  exact={true} component={Home}  />
              
               <Route path="/login">
-               {authenticated ? <Redirect to="/" />: <Login/>}
+               {localStorage.getItem("token") ? <Redirect to="/" />: <Login/>}
               </Route>
               <Route path="/register">
-               {authenticated ? <Redirect to="/" />: <Register/>}
+               {localStorage.getItem("token")? <Redirect to="/" />: <Register/>}
               </Route>
 
               {/* <Route path="/admin/:Subpath"  exact={true} render={(props)=><MainLayout {...props}/>}  /> */}
