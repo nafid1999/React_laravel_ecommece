@@ -1,4 +1,5 @@
 import React from 'react'
+import { useState } from 'react'
 
 const Categories = () => {
 
@@ -7,7 +8,7 @@ const Categories = () => {
         slug:'',
         desc:'',
         metaTitle:'',
-        metaKeyword:'',
+        metaKeywords:'',
         metaDesc:'',
 
     })
@@ -16,14 +17,23 @@ const Categories = () => {
      * 
      * events handler
      */
+    
 
-    const handlSubmit=(e)=>{
-         e.preventDefault()
+    const handlChange=(e)=>{
+
+        setcategoryInput({...categoryInput,[e.target.name]:e.target.value})
 
     }
+    const handlSubmit=(e)=>{
+        e.preventDefault()
+        
+
+   }
 
     return (
+        
         <div className="container-fluid px-4  ">
+            {}
             <h1 className="mt-4">Add Categorie</h1>
             <div className="col-md-8 mt-4 ">
                 <form onSubmit={handlSubmit}>
@@ -40,17 +50,17 @@ const Categories = () => {
 
                             <div className="form-group mb-2">
                                 <label forHtml="name" className="mb-3">Name:</label>
-                                <input className="form-control" name="name" type="text" id="name" />
+                                <input className="form-control" name="name" type="text" id="name" onChange={handlChange} />
                             </div>
 
                             <div className="form-group mb-2">
                                 <label forHtml="slug" className="mb-3">slug:</label>
-                                <input className="form-control" name="slug" type="text" id="slug" />
+                                <input className="form-control" name="slug" type="text" id="slug" onChange={handlChange} />
                             </div>
 
                             <div className="form-group mb-2">
                                 <label forHtml="desc" className="mb-3">description:</label>
-                                <textarea name="desc" className="form-control" id="desc"></textarea>
+                                <textarea name="desc" className="form-control" id="desc" onChange={handlChange}></textarea>
                             </div>
 
                             <div className="form-group mb-2 ">
@@ -63,17 +73,17 @@ const Categories = () => {
 
                             <div className="form-group mb-2">
                                 <label forHtml="meta-title" className="mb-3">Meta title:</label>
-                                <input className="form-control" name="meta-title" type="text" id="meta-title" />
+                                <input className="form-control" name="metaTitle" type="text" id="meta-title" onChange={handlChange} />
                             </div>
 
                             <div className="form-group mb-2">
                                 <label forHtml="meta-keywords" className="mb-3">Meta Keywords:</label>
-                                <input className="form-control" name="meta-keywords" type="text" id="meta-keywords" />
+                                <input className="form-control" name="metaKeywords" type="text" id="meta-keywords" onChange={handlChange} />
                             </div>
 
                             <div className="form-group mb-2">
                                 <label forHtml="meta-desc" className="mb-3">Meta Description:</label>
-                                <textarea name="meta-desc" className="form-control" id="meta-desc"></textarea>
+                                <textarea name="metaDesc" className="form-control" id="meta-desc" onChange={handlChange}></textarea>
                             </div>
 
                             <div className="form-group mr-3">
