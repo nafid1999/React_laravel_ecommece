@@ -51,8 +51,8 @@ const AdminRoute = (props) => {
               swal("Forbedden",err.response.data.message,"warning")
              history.push("/")
       }else if(err.response.status===401){
-               swal("Unthorized",err.response.data.message,"warning")
-               history.push("/login")
+            swal("Unthorized",err.response.data.message,"warning")
+            history.push("/login")
         }
     })
 

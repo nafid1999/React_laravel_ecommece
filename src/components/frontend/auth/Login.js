@@ -32,13 +32,16 @@ const Login = () => {
             axios.post("/api/login",data).then((res)=>{
 
                 if(res.data.status===200){
-                    console.log('hifefs')
                     setErrors({});
                     localStorage.setItem("token",res.data.token);
                     localStorage.setItem("user",res.data.user);
                     swal("Success",res.data.message,"success");
                     setMessage("")
-                    history.push("/")
+                    if(res.data.role==="admin"){
+                        history.push("/admin/dashboard")
+
+                    }else
+                        history.push("/")
 
                 }else if(res.data.status===402){
                     setMessage('');
