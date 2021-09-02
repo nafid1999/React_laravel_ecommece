@@ -15,6 +15,10 @@ const SideBar = () => {
                         <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>
                         Profile
                     </Link>
+                    <Link className="nav-link" to="/admin/add-category">
+                        <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>
+                        Add Categorie
+                    </Link>
                     <Link className="nav-link" to="/admin/categories">
                         <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt"></i></div>
                         Categories

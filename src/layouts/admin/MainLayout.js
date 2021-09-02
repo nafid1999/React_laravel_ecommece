@@ -9,8 +9,9 @@ import SideBar from './SideBar';
 import routes from "../../routes/routes.js"
 import Dashboard from '../../components/admin/Dashboard';
 import Profile from '../../components/admin/Profile';
-import Categories from '../../components/admin/Categories';
+import Categories from '../../components/admin/categories/Categories';
 import Products from '../../components/admin/Products';
+import ListCategories from '../../components/admin/categories/ListCategories';
 const MainLayout = (props) => {
 
     console.log(props)
@@ -29,7 +30,9 @@ const MainLayout = (props) => {
                         <Switch>
                             <Route path="/admin/profile" name="profile" exact={true}   component={Profile}  />
                             <Route path="/admin/dashboard"  exact={true}   component={Dashboard}  />
-                            <Route path="/admin/categories"  exact={true}   component={Categories}  />
+                            <Route path="/admin/add-category"  exact={true}   component={Categories}  />
+                            <Route path="/admin/categories"  exact={true}   component={ListCategories}  />
+
                             <Route path="/admin/products"  exact={true}   component={Products}  />
                             
                             <Redirect from="/admin" to="/admin/dashboard"/>

@@ -6,59 +6,75 @@ import swal from 'sweetalert'
 const Categories = () => {
 
     const [categoryInput, setcategoryInput] = useState({
-        name:"",
-        slug:'',
-        desc:'',
-        metaTitle:'',
-        metaKeywords:'',
-        metaDesc:'',
+        name: "",
+        slug: '',
+        desc: '',
+        metaTitle: '',
+        metaKeywords: '',
+        metaDesc: '',
     })
-    const [errors,setErrors]=useState('');
+    const [errors, setErrors] = useState('');
+    const [isLoading, setLoading] = useState(false);
 
-
+    const resetFields = () => {
+        setcategoryInput({
+            name: "",
+            slug: '',
+            desc: '',
+            metaTitle: '',
+            metaKeywords: '',
+            metaDesc: '',
+        })
+    }
     /**
      * 
      * events handler
      */
-    
-    const handlChange=(e)=>{
 
-        setcategoryInput({...categoryInput,[e.target.name]:e.target.value})
+
+
+
+    const handleClick = () => setLoading(true);
+
+    const handlChange = (e) => {
+
+        setcategoryInput({ ...categoryInput, [e.target.name]: e.target.value })
 
     }
-    const handlSubmit=(e)=>{
+    const handlSubmit = (e) => {
         e.preventDefault()
 
+        axios.post("/api/category/create", { ...categoryInput }).then(res => {
 
-        axios.post("/api/category/create",{...categoryInput}).then(res=>{
-
-            if(res.data.status===200){
+            if (res.data.status === 200) {
                 setErrors('');
-                swal("Success",res.data.message,"success");
-               
-            }else if(res.data.status===403){
+                resetFields();
+                setLoading(false)
+                swal("Success", res.data.message, "success");
+
+            } else if (res.data.status === 403) {
+                setLoading(false)
                 console.log("error")
                 setErrors(res.data.message.name)
 
             }
-        }).catch((err)=>{
+        }).catch((err) => {
             console.log(err)
-         });
+            setLoading(false)
 
+        });
 
-        
-
-   }
+    }
 
     return (
-        
+
         <div className="container-fluid px-4  ">
             {categoryInput.desc}
             <h1 className="mt-4 ">Add Categorie</h1>
             <div className="col-md-8 mt-4 ">
-                { 
-                  errors &&
-                  <div className="alert alert-danger">{errors}</div>
+                {
+                    errors &&
+                    <div className="alert alert-danger">{errors}</div>
 
                 }
                 <form onSubmit={handlSubmit} className="">
@@ -75,7 +91,7 @@ const Categories = () => {
 
                             <div className="form-group mb-2">
                                 <label htmlFor="name" className="mb-3">Name:</label>
-                                <input className="form-control" name="name" type="text" id="name" onChange={handlChange} value={categoryInput.name}/>
+                                <input className="form-control" name="name" type="text" id="name" onChange={handlChange} value={categoryInput.name} />
                             </div>
 
                             <div className="form-group mb-2">
@@ -85,11 +101,17 @@ const Categories = () => {
 
                             <div className="form-group mb-2">
                                 <label htmlFor="desc" className="mb-3">description:</label>
-                                <textarea name="desc" className="form-control" id="desc" onChange={handlChange} value={categoryInput.desc}/>
+                                <textarea name="desc" className="form-control" id="desc" onChange={handlChange} value={categoryInput.desc} />
                             </div>
 
-                            <div className="form-group mb-2 " style={{overflow:"hidden"}} >
-                                <input  type="submit" className="btn btn-primary float-end " value="add category" />
+                            <div className="form-group mb-2 " style={{ overflow: "hidden" }} >
+                                {
+                                    isLoading ?
+                                        <input type="submit" className="btn btn-primary float-end " value={'Loading...'} onClick={handleClick} />
+                                        :
+                                        <input type="submit" className="btn btn-primary float-end " value={"add category"} onClick={handleClick} />
+
+                                }
                             </div>
 
 
@@ -108,11 +130,17 @@ const Categories = () => {
 
                             <div className="form-group mb-2">
                                 <label htmlFor="meta-desc" className="mb-3">Meta Description:</label>
-                                <textarea name="metaDesc" className="form-control" id="meta-desc" onChange={handlChange} value={categoryInput.metaDesc}/>
+                                <textarea name="metaDesc" className="form-control" id="meta-desc" onChange={handlChange} value={categoryInput.metaDesc} />
                             </div>
 
-                            <div className="form-group mr-3 " style={{overflow:"hidden"}}>
-                                <input type="submit"className="btn btn-primary float-end " value="add category" />
+                            <div className="form-group mr-3 " style={{ overflow: "hidden" }}>
+                                {
+                                    isLoading ?
+                                        <input className="btn btn-primary float-end " value={'Loading...'} onClick={handleClick} />
+                                        :
+                                        <input type="submit" className="btn btn-primary float-end " value={"add category"} onClick={handleClick} />
+
+                                }
                             </div>
 
                         </div>
