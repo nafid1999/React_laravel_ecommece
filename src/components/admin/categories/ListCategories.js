@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React,{useState,useEffect} from 'react'
 import { Link } from 'react-router-dom'
+import swal from 'sweetalert'
 
 
 const ListCategories = () => {
@@ -20,6 +21,23 @@ const ListCategories = () => {
         }).catch(err=>console.log(err))
        
     }, [])
+
+    const onDelete= (id)=>{
+
+        let categories=listCategory.filter(cat=>cat.id!==id)
+        if(window.confirm("are you sure,you want to delete this category ")){
+            console.log("delete")
+           axios.delete(`/api/category/delete/${id}`).then(response=>{
+               if(response.data.status===200){
+                setlistCategory(categories)
+
+                   swal("success","deleted successfully","success")
+
+               }
+           }).catch(err=>{
+           })
+        }
+    }
 
 
     if(loading){
@@ -60,7 +78,7 @@ const ListCategories = () => {
                                        
                                     </td>
                                     <td>
-                                        <button className="btn btn-warning">Delete <i class="fas fa-trash"></i></button>
+                                        <button className="btn btn-warning" onClick={onDelete.bind(this,cat.id)}>Delete <i class="fas fa-trash"></i></button>
                                     </td>
                                     
                                 </tr>
