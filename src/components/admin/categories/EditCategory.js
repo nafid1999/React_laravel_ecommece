@@ -139,7 +139,7 @@ const EditCategory = () => {
 
                             <div className="form-group mb-2">
                                 <label htmlFor="metaDesc" className="mb-3">Meta Description:</label>
-                                <textarea name="metaDesc" className="form-control" id="meta-desc" onChange={handlChange} value={categoryInput.metaDesc?categoryInput.metaDesc:''} />
+                                <textarea name="metaDesc" className="form-control" id="metaDesc" onChange={handlChange} value={categoryInput.metaDesc?categoryInput.metaDesc:''} />
                             </div>
 
                             <div className="form-group mr-3 " style={{ overflow: "hidden" }}>
