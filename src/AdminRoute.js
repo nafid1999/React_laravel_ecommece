@@ -61,9 +61,9 @@ const AdminRoute = (props) => {
   
   if(loading){
     return (
-    <div class="text-center py-5" >
-        <div class="spinner-grow text-primary" role="status">
-          <span class="visually-hidden">Loading...</span>
+    <div className="text-center py-5" >
+        <div className="spinner-grow text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
         </div>
     </div>
 
@@ -73,7 +73,7 @@ const AdminRoute = (props) => {
   console.log(props)
     return (
        <Route 
-         path={props.path} exact={true} 
+         path="/admin/:Subpath" 
          render={(props)=>authenticated?
           <MainLayout {...props}/> :
           <Redirect to="/login" />

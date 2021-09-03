@@ -72,7 +72,7 @@ function App() {
               </Route>
 
               {/* <Route path="/admin/:Subpath"  exact={true} render={(props)=><MainLayout {...props}/>}  /> */}
-              <AdminRoute path="/admin/:Subpath"  />
+              <AdminRoute />
               <Redirect from="/admin" to="/admin/dashboard"/>
 
           </Switch>

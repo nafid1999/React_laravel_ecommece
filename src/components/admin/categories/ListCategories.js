@@ -28,10 +28,7 @@ const ListCategories = () => {
             <div class="spinner-grow text-primary" role="status">
               <span class="visually-hidden">Loading...</span>
             </div>
-        </div>
-    
-         
-        )
+        </div>)
       }
     return (
         <div className="container px-4 py-5">
@@ -59,7 +56,7 @@ const ListCategories = () => {
                                     <td>{cat.name}</td>
                                     <td>{cat.slug}</td>
                                     <td>
-                                        <Link to="" className="btn btn-success">Edit  <i className="fas fa-edit"></i></Link>
+                                        <Link to={"/admin/category/edit/"+cat.id} className="btn btn-success">Edit  <i className="fas fa-edit"></i></Link>
                                        
                                     </td>
                                     <td>
