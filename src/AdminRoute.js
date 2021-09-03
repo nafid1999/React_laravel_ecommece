@@ -73,7 +73,7 @@ const AdminRoute = (props) => {
   console.log(props)
     return (
        <Route 
-         path="/admin/:Subpath" 
+         path={props.path} 
          render={(props)=>authenticated?
           <MainLayout {...props}/> :
           <Redirect to="/login" />

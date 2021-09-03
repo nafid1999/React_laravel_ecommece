@@ -5,10 +5,15 @@ import swal from 'sweetalert'
 
 
 const ListCategories = () => {
-
+    /**
+     * states
+     */
     const [listCategory, setlistCategory] = useState([])
     const [loading, setloading] = useState(true)
 
+    /**
+     * life cycle methodes
+     */
     useEffect(() => {
 
         axios.get("/api/categories").then(res=>{
@@ -21,6 +26,11 @@ const ListCategories = () => {
         }).catch(err=>console.log(err))
        
     }, [])
+
+    /**
+     * event handlesrs
+     * @param {id of category} id 
+     */
 
     const onDelete= (id)=>{
 

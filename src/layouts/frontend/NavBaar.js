@@ -20,8 +20,6 @@ const NavBaar = () => {
                         history.push("/")
                 }
                 })
-
-       
             
     }
 

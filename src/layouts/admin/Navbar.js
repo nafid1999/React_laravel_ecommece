@@ -1,6 +1,25 @@
 import React from 'react'
 import {Link} from "react-router-dom"
+import axios from 'axios'
+import { useHistory } from 'react-router'
+import swal from 'sweetalert'
+
 const Navbar = () => {
+
+    const history =useHistory();
+
+    const handlLogout=()=>{
+
+        axios.post("/api/logout").then(res=>{
+           if(res.data.status===200){
+                localStorage.removeItem("token")
+                localStorage.removeItem("user")
+                swal("Success",res.data.message,"success")
+                history.push("/")
+        }
+        })
+    
+}
     return (
     <nav className="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <Link className="navbar-brand ps-3" to="index.html">Start Bootstrap</Link>
@@ -18,7 +37,7 @@ const Navbar = () => {
                         <li><Link className="dropdown-item" to="#!">Settings</Link></li>
                         <li><Link className="dropdown-item" to="#!">Activity Log</Link></li>
                         <li><hr className="dropdown-divider" /></li>
-                        <li><Link className="dropdown-item" to="#!">Logout</Link></li>
+                        <li><a className="dropdown-item" onClick={handlLogout}>Logout</a></li>
                     </ul>
                 </li>
             </ul>

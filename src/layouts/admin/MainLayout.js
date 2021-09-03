@@ -37,7 +37,6 @@ const MainLayout = (props) => {
 
                             <Route path="/admin/products"  exact={true}   component={Products}  />
                             
-                            <Redirect from="/admin" to="/admin/dashboard"/>
                         </Switch>
                     </main>
                     <Footer/>

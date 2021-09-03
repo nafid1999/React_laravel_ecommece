@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom'
 
 const EditCategory = () => {
 
+    //status
     const [categoryInput, setcategoryInput] = useState({
         name: "",
         slug: '',
@@ -15,11 +16,13 @@ const EditCategory = () => {
         metaDesc: '',
     })
     const [errors, setErrors] = useState('');
-    const [isLoading, setLoading] = useState(false);
+    const [isLoading, setLoading] = useState(true);
     const {id}=useParams()
 
   
-
+  /**
+   * life cycle methodes
+   */
 
     useEffect(() => {
 
@@ -40,7 +43,7 @@ const EditCategory = () => {
      */
 
 
-    const handleClick = () => setLoading(true);
+   // const handleClick = () => setLoading(true);
 
     const handlChange = (e) => {
 
@@ -72,6 +75,15 @@ const EditCategory = () => {
         });
 
     }
+
+    if(isLoading){
+        return (
+        <div class="text-center py-5" >
+            <div class="spinner-grow text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>)
+      }
 
    
 
@@ -114,13 +126,7 @@ const EditCategory = () => {
                             </div>
 
                             <div className="form-group mb-2 " style={{ overflow: "hidden" }} >
-                                {
-                                    isLoading ?
-                                        <input type="submit" className="btn btn-primary float-end " value={'Loading...'} onClick={handleClick} />
-                                        :
-                                        <input type="submit" className="btn btn-primary float-end " value={"Update"} onClick={handleClick} />
-
-                                }
+                                <input type="submit" className="btn btn-primary float-end " value={"Update"}  />
                             </div>
 
 
@@ -143,13 +149,8 @@ const EditCategory = () => {
                             </div>
 
                             <div className="form-group mr-3 " style={{ overflow: "hidden" }}>
-                                {
-                                     isLoading ?
-                                     <input type="submit" className="btn btn-primary float-end " value={'Loading...'} onClick={handleClick} />
-                                     :
-                                     <input type="submit" className="btn btn-primary float-end " value={"Update"} onClick={handleClick} />
-
-                                }
+                           
+                                     <input type="submit" className="btn btn-primary float-end " value={"Update"} />
                             </div>
 
                         </div>

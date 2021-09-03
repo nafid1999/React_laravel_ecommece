@@ -4,7 +4,9 @@ import axios from 'axios'
 import swal from 'sweetalert'
 
 const Categories = () => {
-
+    /**
+     * states
+     */
     const [categoryInput, setcategoryInput] = useState({
         name: "",
         slug: '',
@@ -15,7 +17,9 @@ const Categories = () => {
     })
     const [errors, setErrors] = useState('');
     const [isLoading, setLoading] = useState(false);
-
+/**
+ * util methodes
+ */
     const resetFields = () => {
         setcategoryInput({
             name: "",
@@ -26,24 +30,21 @@ const Categories = () => {
             metaDesc: '',
         })
     }
+
     /**
      * 
      * events handler
      */
 
 
-
-
     const handleClick = () => setLoading(true);
 
     const handlChange = (e) => {
-
         setcategoryInput({ ...categoryInput, [e.target.name]: e.target.value })
-
     }
+
     const handlSubmit = (e) => {
         e.preventDefault()
-
         axios.post("/api/category/create", { ...categoryInput }).then(res => {
 
             if (res.data.status === 200) {
