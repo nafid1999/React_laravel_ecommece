@@ -10,7 +10,7 @@ const Categories = () => {
     const [categoryInput, setcategoryInput] = useState({
         name: "",
         slug: '',
-        desc: '',
+        description: '',
         metaTitle: '',
         metaKeywords: '',
         metaDesc: '',
@@ -102,7 +102,7 @@ const Categories = () => {
 
                             <div className="form-group mb-2">
                                 <label htmlFor="desc" className="mb-3">description:</label>
-                                <textarea name="desc" className="form-control" id="desc" onChange={handlChange} value={categoryInput.desc} />
+                                <textarea name="description" className="form-control" id="desc" onChange={handlChange} value={categoryInput.desc} />
                             </div>
 
                             <div className="form-group mb-2 " style={{ overflow: "hidden" }} >

@@ -6,13 +6,14 @@ import {BrowserRouter as Router ,Switch,Route, Redirect} from "react-router-dom"
 import Footer from './Footer';
 import Navbar from "./Navbar";
 import SideBar from './SideBar';
-import routes from "../../routes/routes.js"
 import Dashboard from '../../components/admin/Dashboard';
 import Profile from '../../components/admin/Profile';
 import Categories from '../../components/admin/categories/Categories';
-import Products from '../../components/admin/Products';
 import ListCategories from '../../components/admin/categories/ListCategories';
 import EditCategory from '../../components/admin/categories/EditCategory';
+import Products from '../../components/admin/products/Products';
+import AddProduct from '../../components/admin/products/AddProduct';
+import EditProduct from '../../components/admin/products/EditProduct';
 const MainLayout = (props) => {
 
     console.log(props)
@@ -31,12 +32,15 @@ const MainLayout = (props) => {
                         <Switch>
                             <Route path="/admin/profile" name="profile" exact={true}   component={Profile}  />
                             <Route path="/admin/dashboard"  exact={true}   component={Dashboard}  />
+                            //route categories
                             <Route path="/admin/add-category"  exact={true}   component={Categories}  />
                             <Route path="/admin/categories/all"  exact={true}   component={ListCategories}  />
                             <Route path="/admin/category/edit/:id"  exact={true}   component={EditCategory}  />
-
+                             //route products
+                            <Route path="/admin/add-product"  exact={true}   component={AddProduct}  />
                             <Route path="/admin/products"  exact={true}   component={Products}  />
-                            
+                            <Route path="/admin/product/edit/:id"  exact={true}   component={EditProduct}  />
+
                         </Switch>
                     </main>
                     <Footer/>
