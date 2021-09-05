@@ -67,6 +67,11 @@ const Products = () => {
                                <th>#ID</th>
                                <th>Title</th>
                                <th>Slug</th>
+                               <th>Category</th>
+                               <th>Price</th>
+                               <th>qte</th>
+                               <th>status</th>
+                               <th>image</th>
                                <th>Edit</th> 
                                <th>Delete</th>    
                           </tr>
@@ -79,8 +84,21 @@ const Products = () => {
                                    <td>{pro.id}</td>
                                    <td>{pro.name}</td>
                                    <td>{pro.slug}</td>
+                                   <td>{pro.category.name}</td>
+                                   <td>{pro.price}</td>
+                                   <td>{pro.qte}</td>
                                    <td>
-                                       <Link to={"/admin/category/edit/"+pro.id} className="btn btn-success">Edit  <i className="fas fa-edit"></i></Link>
+                                       {pro.status ?
+                                        <span className="badge bg-primary">enabled</span>
+                                        :
+                                        <span className="badge bg-danger">desabled</span>
+                                    }
+                                   </td>
+                                   <td>
+                                       <img src={`http://127.0.0.1:8000/${pro.image}`}  width="50px"/>
+                                   </td>
+                                   <td>
+                                       <Link to={"/admin/product/edit/"+pro.id} className="btn btn-success">Edit  <i className="fas fa-edit"></i></Link>
                                       
                                    </td>
                                    <td>
