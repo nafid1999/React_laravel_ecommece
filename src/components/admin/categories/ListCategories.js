@@ -52,9 +52,9 @@ const ListCategories = () => {
 
     if(loading){
         return (
-        <div class="text-center py-5" >
-            <div class="spinner-grow text-primary" role="status">
-              <span class="visually-hidden">Loading...</span>
+        <div className="text-center py-5" >
+            <div className="spinner-grow text-primary" role="status">
+              <span className="visually-hidden">Loading...</span>
             </div>
         </div>)
       }
@@ -88,10 +88,11 @@ const ListCategories = () => {
                                        
                                     </td>
                                     <td>
-                                        <button className="btn btn-warning" onClick={onDelete.bind(this,cat.id)}>Delete <i class="fas fa-trash"></i></button>
+                                        <button className="btn btn-warning" onClick={onDelete.bind(this,cat.id)}>Delete <i className="fas fa-trash"></i></button>
                                     </td>
                                     
                                 </tr>
+
 
                             ):
                             <tr >

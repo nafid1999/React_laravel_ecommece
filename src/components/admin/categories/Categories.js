@@ -17,6 +17,7 @@ const Categories = () => {
     })
     const [errors, setErrors] = useState('');
     const [isLoading, setLoading] = useState(false);
+    
 /**
  * util methodes
  */

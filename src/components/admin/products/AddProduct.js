@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect, useRef} from 'react'
 import swal from 'sweetalert';
 
 const AddProduct = () => {
@@ -7,6 +7,7 @@ const AddProduct = () => {
     const [listCategory, setlistCategory] = useState([])
     const [loading, setloading] = useState(true) 
     const [errors, setErrors] = useState('');
+    const fileRef=useRef();
     
     const [productInput, setproductInput] = useState({
         name: "",
@@ -121,6 +122,7 @@ const AddProduct = () => {
         status:false,
         brand:''
         })
+
 
     }
 
@@ -240,11 +242,11 @@ const AddProduct = () => {
 
                                     <div className="form-group mb-2 col-md-8">
                                         <label htmlFor="image" className="mb-3">Image:</label>
-                                        <input className="form-control" name="image" type="file" id="image" onChange={handlFile}   />
+                                        <input className="form-control" name="image" type="file" id="image" onChange={handlFile} ref={fileRef}  />
                                     </div>
 
                                     <div className="form-group form-check col-md-3 mt-3 mx-3">
-                                        <input type="checkbox" className="form-check-input" id="exampleCheck1" name="status" onChange={handlChange} checked={false}/>
+                                        <input type="checkbox" className="form-check-input" id="exampleCheck1" name="status" onChange={handlChange} checked={productInput.status}/>
                                         <label className="form-check-label" htmlFor="exampleCheck1">visible</label>
                                     </div>
 
