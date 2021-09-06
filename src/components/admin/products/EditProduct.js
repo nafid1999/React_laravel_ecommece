@@ -159,7 +159,7 @@ const AddProduct = () => {
                                 <div className="form-group mb-2">
                                 <label htmlFor="cat" className="mb-3">category:</label>
 
-                                    <select className="form-control" id="cat" onChange={handlChange} name="category_id" >
+                                    <select className="form-control" id="cat" onChange={handlChange} name="category_id"  >
                                         {listCategory.map(cat=>
                                             <option key={cat.id} value={cat.id} selected={cat.id===productInput.category.id?true:false}>{cat.name}</option>
                                         )}
