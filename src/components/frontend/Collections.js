@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
 const Collections = () => {
 
@@ -53,7 +54,8 @@ const Collections = () => {
                                     <div className="col-md-4">
                                         <div className="card">
                                             <div className="card-body">
-                                                <h2>{cat.name}</h2>
+                                                <h2><Link to={{pathname:"/category/"+cat.slug,
+                                                aboutProps:{name:cat.name}}} > {cat.name}</Link> </h2>
                                             </div>
                                         </div>
                                     </div>
