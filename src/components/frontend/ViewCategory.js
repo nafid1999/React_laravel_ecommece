@@ -18,10 +18,13 @@ const ViewCategory = (props) => {
      */
     useEffect(() => {
         axios.get("/api/frontendCategories/"+slug).then(res => {
+            console.log(props)
             if (res.data.status === 200) {
                 setproducts([...res.data.data])
                 setcategory({...res.data.data[0].category})
                 setloading(false)
+                document.title=category.name
+
             }else if(res.data.status === 403){
                 swal("warning","no products found","warning")
                 history.push("/collections")
@@ -30,6 +33,15 @@ const ViewCategory = (props) => {
         }).catch(err => console.log(err))
 
     }, [])
+
+    if (loading) {
+        return (
+            <div className="text-center py-5" >
+                <div className="spinner-grow text-primary" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>
+            </div>)
+    }
 
     return (
         <div>
@@ -44,10 +56,10 @@ const ViewCategory = (props) => {
                         {
                             products.map(pro => {
                                 return (
-                                    <div className="col-md-4" key={pro.id}>
+                                    <div className="col-md-2" key={pro.id}>
                                         <div className="card">
-                                            <Link to="/">
-                                              <img src={`http://127.0.0.1:8000/${pro.image}`} className="w-100" />
+                                            <Link to={"/collections/"+pro.category.slug+"/"+pro.slug}>
+                                              <img src={`http://127.0.0.1:8000/${pro.image}`} className="w-75 " height="" />
                                             </Link>
                                             <div className="card-body">
                                                 <h2> {pro.name} </h2>

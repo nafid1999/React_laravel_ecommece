@@ -4,6 +4,8 @@ import axios from 'axios'
 import swal from 'sweetalert'
 import { useHistory } from 'react-router'
 const Login = () => {
+    document.title="Login"
+
   
     /**
      * states

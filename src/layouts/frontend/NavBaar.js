@@ -44,7 +44,13 @@ const NavBaar = () => {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
                     </Nav>
+                    <Nav>
+                        <Link to="/collections" className="nav-link">Collections</Link>
+                        <Link to="/products" className="nav-link">  products     </Link>
+                    </Nav>
+                
                    { AuthButton}
+                  
                 </Navbar.Collapse>
             </Container>
         </Navbar>

@@ -5,6 +5,7 @@ import swal from 'sweetalert'
 import { useHistory } from 'react-router'
 
 const Register = () => {
+    document.title="Register"
 
     /**
      * states
