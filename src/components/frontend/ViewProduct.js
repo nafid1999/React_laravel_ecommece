@@ -12,6 +12,7 @@ const ViewProduct = (props) => {
     const { slug } = useParams();
     const { product_slug } = useParams()
     const history = useHistory()
+    const [quantity, setquantity] = useState(1)
 
 
     /**
@@ -27,16 +28,39 @@ const ViewProduct = (props) => {
                 setproduct({ ...res.data.data[0] })
                 setcategory({ ...res.data.data[0].category })
                 setloading(false)
-                document.title = product.name
+                if(product)
+                   document.title=""+product.name
+
 
             } else if (res.data.status === 403) {
                 swal("warning", "no product found", "warning")
                 history.push("/collections")
             }
 
+
         }).catch(err => console.log(err))
 
     }, [])
+
+    /**
+     * event handler
+     */
+
+    const handleIncrement=(e)=>{
+        if( quantity<10)
+           setquantity(prevQte=>prevQte+1)
+
+    }
+
+    const handleDecrement=(e)=>{
+        if(quantity>1)
+          setquantity(prevQte=>prevQte-1)
+
+    }
+    const handleChange=(e)=>{
+       e.target.name=e.target.value
+
+    }
 
     if (loading) {
         return (
@@ -55,9 +79,9 @@ const ViewProduct = (props) => {
             <div className="row">
                 <div className="col-md-3 mt-3">
                     <div className="input-group">
-                        <button type="button" className="input-group-text">-</button>
-                        <input className="form-control text-center" value="1" />
-                        <button type="button" className="input-group-text">+</button>
+                        <button type="button" className="input-group-text" onClick={handleDecrement} >-</button>
+                        <input className="form-control text-center" value={quantity}  onChange={handleChange} />
+                        <button type="button" className="input-group-text"onClick={handleIncrement} >+</button>
                     </div>
                 </div>
 
