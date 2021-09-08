@@ -62,6 +62,26 @@ const ViewProduct = (props) => {
 
     }
 
+    const addToCart=(e)=>{
+        
+        let data ={
+            product_id:product.id,
+            qte:quantity,
+        }
+
+        axios.post("/api/add-to-cart",data).then(res=>{
+
+            if(res.data.status===200){
+                 swal("success",res.data.message,"success")
+            }else{
+                swal("Error",res.data.message,"error")
+                history.push("/login")
+            }
+            
+        }).catch(err=>console.log(err))
+     }
+
+
     if (loading) {
         return (
             <div className="text-center py-5" >
@@ -86,7 +106,7 @@ const ViewProduct = (props) => {
                 </div>
 
                 <div className="col-md-3 mt-3">
-                 <button type="button" className="btn-primary btn">add to cart</button>
+                 <button type="button" className="btn-primary btn" onClick={addToCart}>add to cart</button>
                       
                 </div>
 
@@ -101,11 +121,7 @@ const ViewProduct = (props) => {
               out of stock
             </label>
              <div className="col-md-3 mt-3">
-             <div className="input-group">
-                 <button type="button" className="input-group-text" >-</button>
-                 <input className="form-control text-center" value="1" readOnly />
-                 <button type="button" className="input-group-text">+</button>
-             </div>
+            
          </div>
          </>
         }

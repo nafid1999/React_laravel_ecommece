@@ -16,7 +16,6 @@ const Collections = () => {
 
         axios.get("/api/frontendCategories").then(res => {
             if (res.data.status === 200) {
-
                 setcategories([...res.data.data])
                 setloading(false)
             }
