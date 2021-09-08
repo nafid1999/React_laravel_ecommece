@@ -73,9 +73,11 @@ const ViewProduct = (props) => {
 
             if(res.data.status===200){
                  swal("success",res.data.message,"success")
-            }else{
+            }else if(res.data.status===401){
                 swal("Error",res.data.message,"error")
                 history.push("/login")
+            }else{
+                swal("Error",res.data.message,"error")
             }
             
         }).catch(err=>console.log(err))
