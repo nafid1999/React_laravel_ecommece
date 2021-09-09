@@ -23,14 +23,16 @@ const ViewCategory = (props) => {
                 setproducts([...res.data.data])
                 setcategory({...res.data.data[0].category})
                 setloading(false)
-                document.title=category.name
+                
 
             }else if(res.data.status === 403){
                 swal("warning","no products found","warning")
                 history.push("/collections")
             }
 
+
         }).catch(err => console.log(err))
+
 
     }, [])
 
@@ -42,6 +44,8 @@ const ViewCategory = (props) => {
                 </div>
             </div>)
     }
+    
+    document.title=category.name
 
     return (
         <div>

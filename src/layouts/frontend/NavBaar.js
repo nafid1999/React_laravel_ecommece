@@ -48,8 +48,22 @@ const NavBaar = () => {
                         <Link to="/collections" className="nav-link">Collections</Link>
                         <Link to="/products" className="nav-link">  products     </Link>
                     </Nav>
+                    {
+                        !localStorage.getItem("token") ?
+        
+                            <Nav>
+                                <Link to="/register" className="nav-link">Register</Link>
+                                <Link to="/login" className="nav-link">  Login </Link>
+                            </Nav>
+                            :
+                            <Nav>
+                            <Button  className="btn btn-danger" onClick={handlLogout}>  logout     </Button>
+                        </Nav>
+
+                    }
+
                 
-                   { AuthButton}
+                   
                   
                 </Navbar.Collapse>
             </Container>

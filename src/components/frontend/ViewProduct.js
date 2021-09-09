@@ -28,15 +28,11 @@ const ViewProduct = (props) => {
                 setproduct({ ...res.data.data[0] })
                 setcategory({ ...res.data.data[0].category })
                 setloading(false)
-                if(product)
-                   document.title=""+product.name
-
 
             } else if (res.data.status === 403) {
                 swal("warning", "no product found", "warning")
                 history.push("/collections")
             }
-
 
         }).catch(err => console.log(err))
 
@@ -95,6 +91,7 @@ const ViewProduct = (props) => {
 
         var stock='';
         if(product.qte>0){
+            document.title=product.name
 
             stock= <div>
             <label className="btn-sm btn-success px-4 mt-2">In stock</label>
@@ -118,6 +115,8 @@ const ViewProduct = (props) => {
         </div>
 
         }else{
+            document.title=product.name
+
             stock= <>
             <label className="btn-sm btn-danger px-4 mt-2">
               out of stock
