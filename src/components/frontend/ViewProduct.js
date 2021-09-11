@@ -100,7 +100,7 @@ const ViewProduct = (props) => {
                 <div className="col-md-3 mt-3">
                     <div className="input-group">
                         <button type="button" className="input-group-text" onClick={handleDecrement} >-</button>
-                        <input className="form-control text-center" value={quantity}  onChange={handleChange} />
+                        <input className="form-control text-center" name="quantity" value={quantity}  onChange={handleChange} />
                         <button type="button" className="input-group-text"onClick={handleIncrement} >+</button>
                     </div>
                 </div>

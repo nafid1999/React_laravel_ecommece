@@ -73,8 +73,17 @@ const ViewCart = () => {
 
 
        axios.delete("/api/deleteItem/"+cart_id).then(res=>{
-           setcart(cart_data)
-          swal("suucess",res.data.message,"success")
+           if(res.data.status==200){
+                setcart(cart_data)
+                swal("suucess",res.data.message,"success")
+           }else if(res.data.status==401){
+            swal("error",res.data.message,"error")
+
+           }else if(res.data.status==402){
+            swal("error",res.data.message,"error")
+
+           }
+       
        })
          
 
@@ -150,7 +159,7 @@ const ViewCart = () => {
         Html_cart=
         <div>
               <div className="card card-body shadow-sm py-5">
-                   <h4>Your shoping cart is empty </h4>
+                   <h4 className="text-center">Your shoping cart is empty </h4>
               </div>
         </div>
         
@@ -167,7 +176,7 @@ const ViewCart = () => {
             <div className="py-3 ">
                 <div className="container">
                     <div className="row">
-                        <div className="col-md-12">
+                        <div className="col-md-12 card card-body shadow-sm">
                           {Html_cart}
                         </div>
                     </div>
