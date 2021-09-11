@@ -31,13 +31,15 @@ const ViewCart = () => {
 
     }, [])
 
+    /**
+     * Event handler
+     */
     const handleChange=(e,id_cart)=>{
 
         setcart(cart=>cart.map(item=>
                 id_cart===item.id?{...item,qte:e.target.value}:item
                 )
             )
-            console.log(cart[0].qte)
          cart.map(item=>{
              if(item.id===id_cart)
              updateCartQte(id_cart,item)
@@ -46,15 +48,50 @@ const ViewCart = () => {
 
     }
 
-    const updateCartQte=(id_cart,cart)=>{
+    const handleIncrement=(id_cart)=>{
+        setcart(cart=>cart.map(item=>
+            id_cart===item.id?{...item,qte:item.qte+(item.qte<10?1:0)}:item
+            )
+        )
+        updateCartQte(id_cart,"inc")
+    }
 
-        axios.put("/api/updateCart/"+id_cart,cart).then(res=>{
+    const handleDecrement=(id_cart)=>{
+        setcart(cart=>cart.map(item=>
+            id_cart===item.id?{...item,qte:item.qte-(item.qte>1?1:0)}:item
+            )
+        )
+        updateCartQte(id_cart,"dec")
+
+    }
+
+   const deleteItem=(cart_id)=>{
+       
+       let  cart_data=cart.filter((item)=>item.id!==cart_id)
+      console.log(cart_data)
+      console.log(cart_id)
+
+
+       axios.delete("/api/deleteItem/"+cart_id).then(res=>{
+           setcart(cart_data)
+          swal("suucess",res.data.message,"success")
+       })
+         
+
+    }
+
+    /**
+     * utility methods
+     */
+
+    const updateCartQte=(id_cart,scope)=>{
+
+        axios.put("/api/updateCart/"+id_cart+"/"+scope).then(res=>{
             if (res.data.status === 200) {
                
-
-            } else if (res.data.status === 401) {
-                
-            }
+            } 
+        }).catch(err=>{
+            swal("error","can not modfy quantity","error")
         })
     }
 
@@ -90,16 +127,19 @@ const ViewCart = () => {
                         </td>
                         <td>{item.product.name}</td>
                         <td>{item.product.price}</td>
-                        <td width="10%"> 
-                            <input className="form-control" type="number" min="1" max="10" name="qte" value={item.qte}  onChange={(e)=>{handleChange(e,item.id)}}/>
-                        </td>
+                        <td width="15%"> 
+                            <div className="input-group">
+                            <button type="button" className="input-group-text" onClick={()=>handleDecrement(item.id)} >-</button>
+                            <input className="form-control text-center" value={item.qte}  onChange={handleChange} />
+                            <button type="button" className="input-group-text"onClick={()=>handleIncrement(item.id)} >+</button>
+                        </div>                        </td>
                         <td className="text-center">{item.qte*item.product.price}</td>
                         <td>
-                            <button className="btn-sm btn-danger"><i className="fas fa-trash"></i></button>
+                            <button className="btn-sm btn-danger" onClick={deleteItem.bind(this,item.id)} ><i className="fas fa-trash"></i></button>
                         </td>
                     </tr>
                ) 
-
+ 
             }
            
         </tbody>
