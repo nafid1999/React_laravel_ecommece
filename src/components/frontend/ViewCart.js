@@ -33,20 +33,20 @@ const ViewCart = () => {
 
     const handleChange=(e,id_cart)=>{
 
-        setcart(cart.map(item=>{
-            if(  id_cart===item.id){
-                
-                return {...item,qte:e.target.value}
-            }else
-                 return item
-            }
+        setcart(cart=>cart.map(item=>
+                id_cart===item.id?{...item,qte:e.target.value}:item
                 )
             )
-            console.log(cart)
+            console.log(cart[0].qte)
+         cart.map(item=>{
+             if(item.id===id_cart)
+             updateCartQte(id_cart,item)
+
+         })
 
     }
 
-    const updateCartQte=(id_cart)=>{
+    const updateCartQte=(id_cart,cart)=>{
 
         axios.put("/api/updateCart/"+id_cart,cart).then(res=>{
             if (res.data.status === 200) {
