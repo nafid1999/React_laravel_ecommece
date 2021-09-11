@@ -24,18 +24,7 @@ const NavBaar = () => {
     }
 
 
-     if(!localStorage.getItem("token")){
-        AuthButton=
-        <Nav>
-            <Link to="/register" className="nav-link">Register</Link>
-            <Link to="/login" className="nav-link">  Login     </Link>
-         </Nav>
-     }else{
-        AuthButton=
-        <Nav>
-            <Button  className="btn btn-danger" onClick={handlLogout}>  logout     </Button>
-         </Nav>
-     }
+    
     return (
         <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
             <Container>
@@ -49,17 +38,17 @@ const NavBaar = () => {
                         <Link to="/products" className="nav-link">  products </Link>
 
                         <Link to="/cart" className="nav-link">
-                          <i class="fas fa-cart-plus  fs-5"></i> cart 
+                          <i className="fas fa-cart-plus  fs-5"></i> cart 
                         </Link>
 
                     </Nav>
                     {
                         !localStorage.getItem("token") ?
         
-                            <Nav>
+                            <>
                                 <Link to="/register" className="nav-link">Register</Link>
                                 <Link to="/login" className="nav-link">  Login </Link>
-                            </Nav>
+                            </>
                             :
                             <Nav>
                             <Button  className="btn btn-danger" onClick={handlLogout}>  logout     </Button>

@@ -19,16 +19,17 @@ const ViewProduct = (props) => {
      * life cycle methodes
      */
     useEffect(() => {
+
         axios.get("/api/frontendProduct/" + slug + "/" + product_slug).then(res => {
             document.body.style.backgroundColor = "white"
 
             console.log(slug + product_slug)
 
             if (res.data.status === 200) {
-                setproduct({ ...res.data.data[0] })
-                setcategory({ ...res.data.data[0].category })
+                console.log('zabiiiiiiii')
+                setproduct({ ...res.data.data })
+                setcategory({ ...res.data.data.category })
                 setloading(false)
-
             } else if (res.data.status === 403) {
                 swal("warning", "no product found", "warning")
                 history.push("/collections")
@@ -36,7 +37,7 @@ const ViewProduct = (props) => {
 
         }).catch(err => console.log(err))
 
-    }, [])
+    },[])
 
     /**
      * event handler
@@ -180,4 +181,3 @@ const ViewProduct = (props) => {
 }
 
 export default ViewProduct
-

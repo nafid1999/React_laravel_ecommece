@@ -8,7 +8,7 @@ const ViewCart = () => {
 
     const history = useHistory()
     const [cart, setcart] = useState([])
-    const [loading, setloading] = useState(false)
+    const [loading, setloading] = useState(true)
 
 
     /**
@@ -19,16 +19,44 @@ const ViewCart = () => {
             document.body.style.backgroundColor = "white"
             if (res.data.status === 200) {
                 setcart([...res.data.cart])
+                console.log(res.data.cart);
                 setloading(false)
 
-            } else if (res.data.status === 403) {
-                swal("warning", "", "warning")
-                history.push("/collections")
+            } else if (res.data.status === 401) {
+                swal("warning",res.data.message, "warning")
+                history.push("/login")
             }
 
         }).catch(err => console.log(err))
 
     }, [])
+
+    const handleChange=(e,id_cart)=>{
+
+        setcart(cart.map(item=>{
+            if(  id_cart===item.id){
+                
+                return {...item,qte:e.target.value}
+            }else
+                 return item
+            }
+                )
+            )
+            console.log(cart)
+
+    }
+
+    const updateCartQte=(id_cart)=>{
+
+        axios.put("/api/updateCart/"+id_cart,cart).then(res=>{
+            if (res.data.status === 200) {
+               
+
+            } else if (res.data.status === 401) {
+                
+            }
+        })
+    }
 
     if (loading) {
         return (
@@ -38,6 +66,57 @@ const ViewCart = () => {
                 </div>
             </div>)
     }
+    var Html_cart="";
+    if(cart.length>0){
+        Html_cart=
+        <table className="table table-responsive ">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Product</th>
+                <th>Price</th>
+                <th className="text-center">Quantity</th>
+                <th className="text-center">Total Price</th>
+                <th>Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+            {
+                cart.length>0 &&
+               cart.map(item=>
+                    <tr key={item.id}>
+                        <td width="10%">
+                            <img src={"http://127.0.0.1:8000/"+item.product.image} width="50px" height="50px"/>
+                        </td>
+                        <td>{item.product.name}</td>
+                        <td>{item.product.price}</td>
+                        <td width="10%"> 
+                            <input className="form-control" type="number" min="1" max="10" name="qte" value={item.qte}  onChange={(e)=>{handleChange(e,item.id)}}/>
+                        </td>
+                        <td className="text-center">{item.qte*item.product.price}</td>
+                        <td>
+                            <button className="btn-sm btn-danger"><i className="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+               ) 
+
+            }
+           
+        </tbody>
+    </table>
+
+    }else{
+
+        Html_cart=
+        <div>
+              <div className="card card-body shadow-sm py-5">
+                   <h4>Your shoping cart is empty </h4>
+              </div>
+        </div>
+        
+    }
+
+
     return (
         <div className="">
             <div className="py-3 bg-warning">
@@ -49,36 +128,7 @@ const ViewCart = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-12">
-                            <table className="table table-responsive ">
-                                <thead>
-                                    <tr>
-                                        <th>Image</th>
-                                        <th>Product</th>
-                                        <th>Price</th>
-                                        <th className="text-center">Quantity</th>
-                                        <th className="text-center">Total Price</th>
-                                        <th>Remove</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td width="10%">
-                                            <img src="" width="50px" height="50px"/>
-                                        </td>
-                                        <td>Product name</td>
-                                        <td>150</td>
-                                        <td width="10%"> 
-                                           <input className="form-control" type="number" min="1" max="10" />
-                                        </td>
-                                        <td className="text-center">250</td>
-                                        <td>
-                                            <button className="btn-sm btn-danger"><i className="fas fa-trash"></i></button>
-                                        </td>
-
-
-                                    </tr>
-                                </tbody>
-                            </table>
+                          {Html_cart}
                         </div>
                     </div>
                 </div>
