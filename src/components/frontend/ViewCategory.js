@@ -44,14 +44,15 @@ const ViewCategory = (props) => {
                 </div>
             </div>)
     }
-    
+
     document.title=category.name
 
     return (
         <div>
             <div className="py-3 bg-warning">
                 <div className="container">
-                    <h6>categories {">"}{category.name} </h6>
+                    <h6 className="inline">categories {">"}{category.name} </h6>
+
                 </div>
             </div>
             <div className="py-3 ">
@@ -60,7 +61,7 @@ const ViewCategory = (props) => {
                         {
                             products.map(pro => {
                                 return (
-                                    <div className="col-md-2" key={pro.id}>
+                                    <div className="col-md-2 shadow-sm p-3 mb-5  rounded" key={pro.id}>
                                         <div className="card">
                                             <Link to={"/collections/"+pro.category.slug+"/"+pro.slug}>
                                               <img src={`http://127.0.0.1:8000/${pro.image}`} className="w-75 " height="" />
@@ -68,7 +69,6 @@ const ViewCategory = (props) => {
                                             <div className="card-body">
                                                 <h2> {pro.name} </h2>
                                                 <p>
-                                                    {pro.description}
                                                 </p>
                                             </div>
                                         </div>

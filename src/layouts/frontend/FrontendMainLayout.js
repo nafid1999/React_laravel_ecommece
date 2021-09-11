@@ -6,6 +6,7 @@ import Contact from '../../components/frontend/Contact'
 import Collections from '../../components/frontend/Collections'
 import ViewCategory from '../../components/frontend/ViewCategory'
 import ViewProduct from '../../components/frontend/ViewProduct'
+import ViewCart from '../../components/frontend/ViewCart'
 
 
 const FrontendMainLayout = () => {
@@ -19,6 +20,8 @@ const FrontendMainLayout = () => {
                 <Route path="/collections" name="collections" exact={true} component={Collections} />
                 <Route path="/collections/:slug"  exact={true} component={ViewCategory} />
                 <Route path="/collections/:slug/:product_slug"  exact={true} component={ViewProduct} />
+                <Route path="/cart"  exact={true} component={ViewCart} />
+
 
 
             </Switch>

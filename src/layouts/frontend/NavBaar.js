@@ -37,7 +37,7 @@ const NavBaar = () => {
          </Nav>
      }
     return (
-        <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
+        <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
             <Container>
                 <Navbar.Brand href="#home">BoukiShope</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -46,7 +46,12 @@ const NavBaar = () => {
                     </Nav>
                     <Nav>
                         <Link to="/collections" className="nav-link">Collections</Link>
-                        <Link to="/products" className="nav-link">  products     </Link>
+                        <Link to="/products" className="nav-link">  products </Link>
+
+                        <Link to="/cart" className="nav-link">
+                          <i class="fas fa-cart-plus  fs-5"></i> cart 
+                        </Link>
+
                     </Nav>
                     {
                         !localStorage.getItem("token") ?
