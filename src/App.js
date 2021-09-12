@@ -1,14 +1,10 @@
 
-import MainLayout from './layouts/admin/MainLayout';
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
-import Home from './components/frontend/Home';
 import Login from './components/frontend/auth/Login';
 import Register from './components/frontend/auth/Register';
 import axios from "axios"
 import AdminRoute from './AdminRoute';
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router'
-import { Spinner } from 'react-bootstrap';
 import PublicRoute from './PublicRoute';
 
 
@@ -84,5 +80,7 @@ function App() {
     </div>
   );
 }
+
+
 
 export default App;

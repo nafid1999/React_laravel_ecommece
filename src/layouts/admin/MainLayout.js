@@ -18,6 +18,29 @@ const MainLayout = (props) => {
 
     console.log(props)
 
+        // Toggle the side navigation
+        const sidebarToggle = document.getElementById("sidebarToggle")
+        
+        if (sidebarToggle) {
+        
+            // Uncomment Below to persist sidebar toggle between refreshes
+            // if (localStorage.getItem('sb|sidebar-toggle') === 'true') {
+            //     document.body.classList.toggle('sb-sidenav-toggled');
+            // }
+            sidebarToggle.addEventListener('click', event => {
+                event.preventDefault();
+                console.log("btn clicked")
+                if(document.body.classList.contains('sb-sidenav-toggled')){
+                    document.body.classList.remove("sb-sidenav-toggled")
+                }else{
+                    document.body.classList.add("sb-sidenav-toggled")
+
+                }
+               
+            });
+        }
+        
+
     return (
         <div className="sb-nav-fixed" style={{backgroundColor:""}}>
              <Navbar />
