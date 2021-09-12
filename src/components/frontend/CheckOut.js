@@ -122,26 +122,35 @@ const CheckOut = () => {
                                 <thead>
                                     <tr>
                                         <th>Product</th>
-                                        <th>Quantity</th>
+                                        <th className="text-center">Quantity</th>
                                         <th>Price</th>
-                                        <th>Total</th>
+                                        <th className="text-center">Total</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                    {
                                       cart.length>0 &&
-                                      cart.map(item=>
-                                        <tr key={item.id}>
+                                      cart.map(item=>{
+                                        Totalprice+=item.qte*item.product.price
+
+                                        return <tr key={item.id}>
                                             <td width="10%">
                                                 <img src={"http://127.0.0.1:8000/"+item.product.image} width="50px" height="50px"/>
                                             </td>
-                                            <td>{item.qte}</td>
+                                            <td className="text-center">{item.qte}</td>
                                             <td>{item.product.price}</td>
                                             <td className="text-center">{item.qte*item.product.price}</td>  
                                         </tr>
+                                        }
                                         )
                                    }
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th colSpan="3" >Grand Total</th>
+                                        <th className="text-center">{Totalprice} Dh</th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
