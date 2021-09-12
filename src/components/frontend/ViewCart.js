@@ -2,13 +2,14 @@ import React,{useState,useEffect} from 'react'
 import { useHistory } from 'react-router'
 import swal from 'sweetalert'
 import axios from 'axios'
-
+import { Link } from 'react-router-dom'
 const ViewCart = () => {
 
 
     const history = useHistory()
     const [cart, setcart] = useState([])
     const [loading, setloading] = useState(true)
+    let Totalprice=0;
 
 
     /**
@@ -129,8 +130,9 @@ const ViewCart = () => {
         <tbody>
             {
                 cart.length>0 &&
-               cart.map(item=>
-                    <tr key={item.id}>
+               cart.map(item=>{
+                  Totalprice+=item.qte*item.product.price
+                    return <tr key={item.id}>
                         <td width="10%">
                             <img src={"http://127.0.0.1:8000/"+item.product.image} width="50px" height="50px"/>
                         </td>
@@ -147,6 +149,7 @@ const ViewCart = () => {
                             <button className="btn-sm btn-danger" onClick={deleteItem.bind(this,item.id)} ><i className="fas fa-trash"></i></button>
                         </td>
                     </tr>
+                }
                ) 
  
             }
@@ -158,7 +161,7 @@ const ViewCart = () => {
 
         Html_cart=
         <div>
-              <div className="card card-body shadow-sm py-5">
+              <div className=" py-5">
                    <h4 className="text-center">Your shoping cart is empty </h4>
               </div>
         </div>
@@ -173,12 +176,31 @@ const ViewCart = () => {
                     <h6>Home {">"} Cart</h6>
                 </div>
             </div>
-            <div className="py-3 ">
+            <div className="py-3 mt-5">
                 <div className="container">
                     <div className="row">
                         <div className="col-md-12 card card-body shadow-sm">
                           {Html_cart}
                         </div>
+                        <div className="col-md-8"></div>
+                        {
+                          cart.length>0 &&
+                        
+                        <div className="col-md-4 mt-5">
+                            <div className="card card-body">
+                            <h4 className="">
+                                   Sub Total :
+                                   <span className="float-end">{Totalprice} Dh</span>
+                               </h4>  
+                               <h4 className="">
+                                   Grand Total :
+                                   <span className="float-end">{Totalprice} Dh</span>
+                               </h4>
+                               <hr/>
+                               <Link className="btn btn-info">Cheackout</Link>
+                            </div>
+                        </div>
+                        }
                     </div>
                 </div>
             </div>
