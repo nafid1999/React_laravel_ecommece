@@ -197,7 +197,7 @@ const ViewCart = () => {
                                    <span className="float-end">{Totalprice} Dh</span>
                                </h4>
                                <hr/>
-                               <Link className="btn btn-info">Cheackout</Link>
+                               <Link className="btn btn-info" to="/checkout">Cheackout</Link>
                             </div>
                         </div>
                         }

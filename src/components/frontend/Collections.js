@@ -51,7 +51,7 @@ const Collections = () => {
                         {
                             categories.map(cat => {
                                 return (
-                                    <div className="col-md-4">
+                                    <div className="col-md-4" key={cat.id}>
                                         <div className="card">
                                             <div className="card-body">
                                                 <h2><Link to={{pathname:"/collections/"+cat.slug,
