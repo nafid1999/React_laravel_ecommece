@@ -35,7 +35,8 @@ const ViewProduct = (props) => {
                 history.push("/collections")
             }
 
-        }).catch(err => console.log(err))
+        }).catch(err => history.push("/servererror")
+        )
 
     },[])
 

@@ -28,7 +28,9 @@ const ViewCart = () => {
                 history.push("/login")
             }
 
-        }).catch(err => console.log(err))
+        }).catch(err => {
+            history.push("/servererror")
+        })
 
     }, [])
 

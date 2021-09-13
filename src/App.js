@@ -6,6 +6,7 @@ import axios from "axios"
 import AdminRoute from './AdminRoute';
 import React, { useState, useEffect } from 'react';
 import PublicRoute from './PublicRoute';
+import PageNotFound from "./components/errors/PageNotFound";
 
 
 //config for axios
@@ -59,19 +60,15 @@ function App() {
 
       <Router>
         <Switch>
-          <Route path="/login">
-            {localStorage.getItem("token") ? <Redirect to="/" /> : <Login />}
-          </Route>
-          <Route path="/register">
-            {localStorage.getItem("token") ? <Redirect to="/" /> : <Register />}
-          </Route>
-
-          <AdminRoute path="/admin/:Subpath" />
-          <Redirect from="/admin" to="/admin/dashboard" />
-
-          <PublicRoute path="/" />
-
-
+            <Route path="/login">
+              {localStorage.getItem("token") ? <Redirect to="/" /> : <Login />}
+            </Route>
+            <Route path="/register">
+              {localStorage.getItem("token") ? <Redirect to="/" /> : <Register />}
+            </Route>
+            <AdminRoute path="/admin/:Subpath" />
+            <Redirect from="/admin" to="/admin/dashboard" />
+            <PublicRoute  path="/" />
           {/* <Route path="/admin/:Subpath"  exact={true} render={(props)=><MainLayout {...props}/>}  /> */}
 
         </Switch>

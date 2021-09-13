@@ -31,7 +31,8 @@ const ViewCategory = (props) => {
             }
 
 
-        }).catch(err => console.log(err))
+        }).catch(err =>  history.push("/servererror")
+        )
 
 
     }, [])

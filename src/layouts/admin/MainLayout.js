@@ -14,6 +14,7 @@ import EditCategory from '../../components/admin/categories/EditCategory';
 import Products from '../../components/admin/products/Products';
 import AddProduct from '../../components/admin/products/AddProduct';
 import EditProduct from '../../components/admin/products/EditProduct';
+import PageNotFound from '../../components/errors/PageNotFound';
 const MainLayout = (props) => {
 
     console.log(props)
@@ -63,6 +64,7 @@ const MainLayout = (props) => {
                             <Route path="/admin/add-product"  exact={true}   component={AddProduct}  />
                             <Route path="/admin/products"  exact={true}   component={Products}  />
                             <Route path="/admin/product/edit/:id"  exact={true}   component={EditProduct}  />
+                            <Route  component={PageNotFound} />
 
                         </Switch>
                     </main>

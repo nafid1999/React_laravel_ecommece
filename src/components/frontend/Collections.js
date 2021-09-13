@@ -1,12 +1,13 @@
 import React from 'react'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 const Collections = () => {
 
     const [categories, setcategories] = useState([])
     const [loading, setloading] = useState(true)
+    const history =useHistory()
 
     /**
      * life cycle methodes
@@ -20,7 +21,11 @@ const Collections = () => {
                 setloading(false)
             }
 
-        }).catch(err => console.log(err))
+        }).catch(err => {
+            history.push("/servererror")
+
+        }
+        )
 
     }, [])
 
