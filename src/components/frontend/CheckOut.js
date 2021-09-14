@@ -4,11 +4,24 @@ import swal from 'sweetalert'
 import axios from 'axios'
 const CheckOut = () => {
 
-    
+    let Totalprice=0;
     const history = useHistory()
     const [cart, setcart] = useState([])
     const [loading, setloading] = useState(true)
-    let Totalprice=0;
+    const [checkoutInput, setcheckoutInput] = useState({
+         first_name:'',
+         last_name:"",
+         email:"",
+         adress:"",
+         state:"",
+         city:"",
+         zip_code:"",
+         phone:""   
+     })
+
+     const [errors, setErrors] = useState([]);
+
+
 
     /**
      * life cycle methodes
@@ -31,6 +44,31 @@ const CheckOut = () => {
         )
 
     }, [])
+
+    /**
+     * event handler
+     */
+    const handleChange =(e)=>{
+        setcheckoutInput({ ...checkoutInput, [e.target.name]: e.target.value })
+
+    }
+     const sabmitOrder =(e)=>{
+          e.persist()
+          const data ={...checkoutInput}
+
+          axios.post("/api/place-order",data).then(res=>{
+              if(res.data.status===201){
+                setcart([])
+                swal("success","Operation passed successfully","success")
+              }else if(res.data.status==422){
+                  setErrors({...res.data.errors})
+                  console.log(errors)
+                swal("erors","invalid fields","error")
+
+              }
+          })
+
+     }
 
     if (loading) {
         return (
@@ -61,57 +99,72 @@ const CheckOut = () => {
                                   <div className="col-md-6">
                                           <div className="form-group">
                                               <label className="mb-2">First Name</label>
-                                              <input className="form-control" type="text" name="first_name"/>
+                                              <input className="form-control" type="text" name="first_name" onChange={handleChange} value={checkoutInput.first_name} />
+                                              <small className="text-danger">{errors.first_name?errors.first_name:""}</small>
                                           </div>
                                       </div>
                                       <div className="col-md-6">
                                           <div className="form-group">
                                               <label className="mb-2">Last Name</label>
-                                              <input className="form-control" type="text" name="last_name"/>
+                                              <input className="form-control" type="text" name="last_name" onChange={handleChange} value={checkoutInput.last_name}/>
+                                              <small className="text-danger">{errors.last_name?errors.last_name:""}</small>
+
                                           </div>
                                       </div>
                                       <div className="col-md-6">
                                           <div className="form-group">
                                               <label className="mb-2">Phone Number</label>
-                                              <input className="form-control" type="text" name="phone"/>
+                                              <input className="form-control" type="text" name="phone" onChange={handleChange} value={checkoutInput.phone}/>
+                                              <small className="text-danger">{errors.phone?errors.phone:""}</small>
+
                                           </div>
                                       </div>
 
                                       <div className="col-md-6">
                                           <div className="form-group">
                                               <label className="mb-2">Email Adress</label>
-                                              <input className="form-control" type="email" name="email"/>
+                                              <input className="form-control" type="email" name="email" onChange={handleChange} value={checkoutInput.email} />
+                                              <small className="text-danger">{errors.email?errors.email:""}</small>
+
                                           </div>
                                       </div>
                                       <div className="col-md-12">
                                           <div className="form-group">
                                               <label className="mb-2">Full adress</label>
-                                              <textarea className="form-control" name="adress" />
+                                              <textarea className="form-control" name="adress" onChange={handleChange} value={checkoutInput.adress} />
+                                              <small className="text-danger">{errors.adress?errors.adress:""}</small>
+
                                           </div>
                                       </div>
                                        <div className="col-md-4">
                                           <div className="form-group">
                                               <label className="mb-2">City</label>
-                                              <input className="form-control" type="text" name="city"/>
+                                              <input className="form-control" type="text" name="city" onChange={handleChange} value={checkoutInput.city}/>
+                                              <small className="text-danger">{errors.city?errors.city:""}</small>
+
                                           </div>
                                       </div> 
                                       <div className="col-md-4">
                                           <div className="form-group">
                                               <label className="mb-2">State</label>
-                                              <input className="form-control" type="text" name="state"/>
+                                              <input className="form-control" type="text" name="state" onChange={handleChange} value={checkoutInput.state} />
+                                              <small className="text-danger">{errors.state?errors.state:""}</small>
+
                                           </div>
                                       </div>
 
                                       <div className="col-md-4">
                                           <div className="form-group">
                                               <label className="mb-2">Zip code</label>
-                                              <input className="form-control" type="text" name="zipe_code"/>
+                                              <input className="form-control" type="text" name="zip_code" onChange={handleChange} value={checkoutInput.zip_code} />
+                                              <small className="text-danger">{errors.zip_code?errors.zip_code:""}</small>
+
                                           </div>
                                       </div>
 
                                       <div className="col-md-12 mt-3 ">
                                           <div className="form-group">
-                                              <button className="btn btn-primary btn-block"> Place Order</button>
+                                              <button className="btn btn-primary btn-block" onClick={sabmitOrder}> Place Order</button>
                                           </div>
                                       </div>
                                   </div>
