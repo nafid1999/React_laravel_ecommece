@@ -56,12 +56,12 @@ const Products = () => {
      }
    return (
        <div className="container px-4 py-5">
-           <div className="card  ">
+           <div className="card  shadow-sm  ">
                <div className="card-header">
                <h2> Categories</h2>
                </div>
-               <div className="card-body">
-                  <table className="table table-bordered table-striped">
+               <div className="card-body ">
+                  <table className="table table-bordered table-striped ">
                       <thead className="p-5">
                           <tr>
                                <th>#ID</th>
