@@ -27,7 +27,6 @@ const FrontendMainLayout = () => {
                 <Route path="/checkout"  exact={true} component={CheckOut} />
                 <Route path="/serverError"  exact={true} component={ServerError} />
                 <Route  component={PageNotFound} />
-
             </Switch>
         </div>
     )
