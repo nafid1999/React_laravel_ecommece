@@ -1,8 +1,10 @@
 import React from 'react'
 import NavBaar from '../../layouts/frontend/NavBaar'
 
-const Home = () => {
+const Home = (props) => {
     document.title="Bouki Shop"
+
+    console.log(props)
 
     return (
         <div>   

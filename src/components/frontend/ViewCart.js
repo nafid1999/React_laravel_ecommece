@@ -3,7 +3,7 @@ import { useHistory } from 'react-router'
 import swal from 'sweetalert'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
-const ViewCart = () => {
+const ViewCart = (props) => {
 
 
     const history = useHistory()
@@ -71,8 +71,10 @@ const ViewCart = () => {
    const deleteItem=(cart_id)=>{
        
        let  cart_data=cart.filter((item)=>item.id!==cart_id)
+       props.decrementQte();
       console.log(cart_data)
       console.log(cart_id)
+
 
 
        axios.delete("/api/deleteItem/"+cart_id).then(res=>{

@@ -10,8 +10,9 @@ const PublicRoute = (props) => {
 
     return (
        <Route 
+         name="main layout"
          path={props.path} 
-         render={(props)=><FrontendMainLayout {...props}/>  }
+         render={(props)=><FrontendMainLayout {...props} name="hhhhhggf"/>  }
        
        />
     )

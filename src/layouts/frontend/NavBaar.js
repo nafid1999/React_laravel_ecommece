@@ -1,4 +1,4 @@
-import React ,{useEffect,useState}from 'react'
+import React,{useState,useEffect} from 'react'
 import { Navbar, Nav, Container,Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
@@ -9,8 +9,12 @@ var AuthButton=''
 const NavBaar = (props) => {
 
     const history=useHistory()
-   const [number_items, setnumber_items] = useState(0)
-   const [cart, setcart] = useState([])
+    const [number_items, setnumber_items] = useState(props.number_items)
+    
+    useEffect(() => {
+        setnumber_items(props.number_items)
+    }, [props.number_items])
+
 
     const handlLogout=()=>{
 
@@ -25,29 +29,11 @@ const NavBaar = (props) => {
             
     }
 
-    useEffect(() => {
-        axios.get("/api/view-cart").then(res => {
-            document.body.style.backgroundColor = "white"
-            if (res.data.status === 200) {
-                setcart([...res.data.cart])
-
-                setnumber_items(cart.length)
-                console.log(cart.length)
-
-            } else if (res.data.status === 401) {
-               
-            }
-
-        }).catch(err => {
-            history.push("/servererror")
-        })
-
-    },[history])
-
-
+   
+    
     
     return (
-        <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+        <Navbar collapseOnSelect expand="lg" bg="light" variant="light" >
             <Container>
                 <Navbar.Brand href="#home">BoukiShope</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -60,7 +46,7 @@ const NavBaar = (props) => {
 
                         <Link to="/cart" className="nav-link">
                           <i className="fas fa-cart-plus  fs-5"></i> cart 
-                          <span className="badge bg-danger fs-8 rounded-circle">{number_items}</span>
+                          <span className="badge bg-danger rounded-circle fs-8" >{number_items>0?number_items:""}</span>
                         </Link>
 
                     </Nav>
