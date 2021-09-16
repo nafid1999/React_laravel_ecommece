@@ -70,7 +70,6 @@ const ViewProduct = (props) => {
         axios.post("/api/add-to-cart",data).then(res=>{
 
             if(res.data.status===200){
-                 props.incrementQte();
                  swal("success",res.data.message,"success")
             }else if(res.data.status===401){
                 swal("Error",res.data.message,"error")

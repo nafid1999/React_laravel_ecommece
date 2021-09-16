@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react'
 import { useHistory } from 'react-router'
 import swal from 'sweetalert'
 import axios from 'axios'
-const CheckOut = () => {
+const CheckOut = (props) => {
 
     let Totalprice=0;
     const history = useHistory()
@@ -59,6 +59,7 @@ const CheckOut = () => {
           axios.post("/api/place-order",data).then(res=>{
               if(res.data.status===201){
                 setcart([])
+                props.resetQte()
                 swal("success","Operation passed successfully","success")
               }else if(res.data.status==422){
                   setErrors({...res.data.errors})

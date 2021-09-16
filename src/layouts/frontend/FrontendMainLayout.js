@@ -19,7 +19,7 @@ const FrontendMainLayout = (props) => {
 
     const [number_items, setnumber_items] = useState(0)
     const history = useHistory()
-   
+    const [cart_items, setcart_items] = useState([])
 
     /**
      * life cycle methodes
@@ -28,6 +28,7 @@ const FrontendMainLayout = (props) => {
         axios.get("/api/view-cart").then(res => {
             document.body.style.backgroundColor = "white"
             if (res.data.status === 200) {
+                setcart_items(res.data.cart);
                 setnumber_items(res.data.cart.length)
                 console.log("navbarr"+res.data.cart.length);
             } 
@@ -35,7 +36,7 @@ const FrontendMainLayout = (props) => {
             history.push("/servererror")
         })
 
-    }, [])
+    }, [history])
 
 
     const decrementQte=()=>{
@@ -47,6 +48,11 @@ const FrontendMainLayout = (props) => {
         setnumber_items(prev=>prev+1)
         console.log(number_items)
     }
+
+    const resetQte=()=>{
+        setnumber_items(0)
+    }
+    
     return (
         <div>
             <NavBaar number_items={number_items}  />
@@ -56,9 +62,9 @@ const FrontendMainLayout = (props) => {
                 <Route path="/contact" name="contact" exact={true} component={Contact} />
                 <Route path="/collections" name="collections" exact={true} component={Collections} />
                 <Route path="/collections/:slug"  exact={true} component={ViewCategory} />
-                <Route path="/collections/:slug/:product_slug"  exact={true} component={()=><ViewProduct  incrementQte={incrementQte}/>} />
-                <Route path="/cart"  exact={true} component={()=><ViewCart  decrementQte={decrementQte}/>} />
-                <Route path="/checkout"  exact={true} component={CheckOut} />
+                <Route path="/collections/:slug/:product_slug"  exact={true} component={ViewProduct} />
+                <Route path="/cart"  exact={true} component={ViewCart} />
+                <Route path="/checkout"  exact={true} component={()=><CheckOut resetQte={resetQte} />} />
                 <Route path="/serverError"  exact={true} component={ServerError} />
                 <Route  component={PageNotFound} />
             </Switch>
