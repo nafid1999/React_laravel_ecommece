@@ -78,6 +78,8 @@ const ViewCart = () => {
        axios.delete("/api/deleteItem/"+cart_id).then(res=>{
            if(res.data.status==200){
                 setcart(cart_data)
+                let num_items=parseInt(localStorage.getItem("number_items"))-1
+                localStorage.setItem("number_items",num_items)
                 swal("suucess",res.data.message,"success")
            }else if(res.data.status==401){
             swal("error",res.data.message,"error")

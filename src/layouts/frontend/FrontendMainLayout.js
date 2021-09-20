@@ -30,6 +30,7 @@ const FrontendMainLayout = (props) => {
             if (res.data.status === 200) {
                 setcart_items(res.data.cart);
                 setnumber_items(res.data.cart.length)
+                localStorage.setItem("number_items",res.data.cart.length)
                 console.log("navbarr"+res.data.cart.length);
             } 
         }).catch(err => {

@@ -46,7 +46,7 @@ const NavBaar = (props) => {
 
                         <Link to="/cart" className="nav-link">
                           <i className="fas fa-cart-plus  fs-5"></i> cart 
-                          <span className="badge bg-danger rounded-circle fs-8" >{number_items>0?number_items:""}</span>
+                          <span className="badge bg-danger rounded-circle fs-8" >{localStorage.getItem("number_items")?localStorage.getItem("number_items"):""}</span>
                         </Link>
 
                     </Nav>
