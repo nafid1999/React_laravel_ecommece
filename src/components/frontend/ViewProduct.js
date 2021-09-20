@@ -4,6 +4,8 @@ import { ListGroupItem } from 'react-bootstrap'
 import { useParams, useHistory } from 'react-router-dom'
 import swal from 'sweetalert'
 
+var product_details=null
+
 const ViewProduct = (props) => {
 
     const [product, setproduct] = useState()
@@ -20,6 +22,7 @@ const ViewProduct = (props) => {
      */
     useEffect(() => {
 
+    if(product_details===null)
         axios.get("/api/frontendProduct/" + slug + "/" + product_slug).then(res => {
             document.body.style.backgroundColor = "white"
 
@@ -28,6 +31,7 @@ const ViewProduct = (props) => {
             if (res.data.status === 200) {
                 console.log('zabiiiiiiii')
                 setproduct({ ...res.data.data })
+                product_details={...res.data.data}
                 setcategory({ ...res.data.data.category })
                 setloading(false)
             } else if (res.data.status === 403) {
@@ -35,8 +39,12 @@ const ViewProduct = (props) => {
                 history.push("/collections")
             }
 
-        }).catch(err => history.push("/servererror")
-        )
+        }).catch(err => history.push("/servererror") )
+        else{
+            setloading(false)
+            setproduct({...product_details})
+        }
+    
 
     },[])
 
