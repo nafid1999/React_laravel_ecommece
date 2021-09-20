@@ -4,6 +4,8 @@ import axios from 'axios'
 import { Link, useHistory } from 'react-router-dom'
 import swal from 'sweetalert'
 
+var items=null
+var category_name=null
 const ViewCategory = (props) => {
 
     const [products, setproducts] = useState([])
@@ -17,23 +19,26 @@ const ViewCategory = (props) => {
      * life cycle methodes
      */
     useEffect(() => {
+    if(items===null)
         axios.get("/api/frontendCategories/"+slug).then(res => {
             console.log(props)
             if (res.data.status === 200) {
                 setproducts([...res.data.data])
                 setcategory({...res.data.data[0].category})
+                items=[...res.data.data]
+                category_name={...res.data.data[0].category}
                 setloading(false)
-                
-
+            
             }else if(res.data.status === 403){
                 swal("warning","no products found","warning")
                 history.push("/collections")
             }
-
-
-        }).catch(err =>  history.push("/servererror")
-        )
-
+        }).catch(err =>  history.push("/servererror"))
+      else{
+          setloading(false)
+          setproducts([...items])
+          setcategory({...category_name})
+      }
 
     }, [])
 

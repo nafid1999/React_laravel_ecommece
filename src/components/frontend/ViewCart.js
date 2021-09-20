@@ -3,6 +3,7 @@ import { useHistory } from 'react-router'
 import swal from 'sweetalert'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+var cart_items=null
 const ViewCart = () => {
 
 
@@ -16,21 +17,27 @@ const ViewCart = () => {
      * life cycle methodes
      */
     useEffect(() => {
-        axios.get("/api/view-cart").then(res => {
-            document.body.style.backgroundColor = "white"
-            if (res.data.status === 200) {
-                setcart([...res.data.cart])
-                console.log(res.data.cart);
+        if(cart_items===null)
+            axios.get("/api/view-cart").then(res => {
+                document.body.style.backgroundColor = "white"
+                if (res.data.status === 200) {
+                    setcart([...res.data.cart])
+                    cart_items={...res.data.cart}
+                    console.log(res.data.cart);
+                    setloading(false)
+
+                } else if (res.data.status === 401) {
+                    swal("warning",res.data.message, "warning")
+                    history.push("/login")
+                }
+
+            }).catch(err => {
+                history.push("/servererror")
+            })
+            else{
                 setloading(false)
-
-            } else if (res.data.status === 401) {
-                swal("warning",res.data.message, "warning")
-                history.push("/login")
+                 setcart({...cart_items})
             }
-
-        }).catch(err => {
-            history.push("/servererror")
-        })
 
     }, [])
 

@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 
+var collections=null
 const Collections = () => {
 
     const [categories, setcategories] = useState([])
@@ -14,18 +15,20 @@ const Collections = () => {
      */
     useEffect(() => {
         document.title="Collections"
-
+      if(collections===null)
         axios.get("/api/frontendCategories").then(res => {
             if (res.data.status === 200) {
                 setcategories([...res.data.data])
+                collections=[...res.data.data]
                 setloading(false)
             }
 
         }).catch(err => {
-            history.push("/servererror")
-
+            history.push("/servererror")} )
+        else{
+            setloading(false)
+            setcategories([...collections])
         }
-        )
 
     }, [])
 
@@ -41,7 +44,7 @@ const Collections = () => {
                     <span className="visually-hidden">Loading...</span>
                 </div>
             </div>)
-    }
+    }else
 
     return (
         <div>
