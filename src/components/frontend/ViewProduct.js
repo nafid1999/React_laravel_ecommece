@@ -78,6 +78,7 @@ const ViewProduct = (props) => {
         axios.post("/api/add-to-cart",data).then(res=>{
 
             if(res.data.status===200){
+                 localStorage.setItem("added_to_cart",true)
                  swal("success",res.data.message,"success")
             }else if(res.data.status===401){
                 swal("Error",res.data.message,"error")

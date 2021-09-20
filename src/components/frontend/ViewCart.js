@@ -4,7 +4,7 @@ import swal from 'sweetalert'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 var cart_items=null
-const ViewCart = () => {
+const ViewCart = (props) => {
 
 
     const history = useHistory()
@@ -17,12 +17,13 @@ const ViewCart = () => {
      * life cycle methodes
      */
     useEffect(() => {
-        if(cart_items===null)
+        if(cart_items===null || localStorage.getItem("added_to_cart")=="true"){
             axios.get("/api/view-cart").then(res => {
                 document.body.style.backgroundColor = "white"
+                localStorage.setItem("added_to_cart",false)
                 if (res.data.status === 200) {
                     setcart([...res.data.cart])
-                    cart_items={...res.data.cart}
+                    cart_items=[...res.data.cart]
                     console.log(res.data.cart);
                     setloading(false)
 
@@ -34,9 +35,9 @@ const ViewCart = () => {
             }).catch(err => {
                 history.push("/servererror")
             })
-            else{
+        }else{
                 setloading(false)
-                 setcart({...cart_items})
+                 setcart([...cart_items])
             }
 
     }, [])
@@ -71,6 +72,7 @@ const ViewCart = () => {
             id_cart===item.id?{...item,qte:item.qte-(item.qte>1?1:0)}:item
             )
         )
+        props.decrementQte()
         updateCartQte(id_cart,"dec")
 
     }
@@ -80,10 +82,12 @@ const ViewCart = () => {
        let  cart_data=cart.filter((item)=>item.id!==cart_id)
       console.log(cart_data)
       console.log(cart_id)
-
+      cart_items=[...cart_data]
+ 
 
        axios.delete("/api/deleteItem/"+cart_id).then(res=>{
            if(res.data.status==200){
+                 props.decrementQte()
                 setcart(cart_data)
                 let num_items=parseInt(localStorage.getItem("number_items"))-1
                 localStorage.setItem("number_items",num_items)
