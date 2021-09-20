@@ -22,13 +22,14 @@ const ViewProduct = (props) => {
      */
     useEffect(() => {
 
-    if(product_details===null)
+    if(product_details===null || localStorage.getItem("slug_product")!=product_slug)
         axios.get("/api/frontendProduct/" + slug + "/" + product_slug).then(res => {
             document.body.style.backgroundColor = "white"
 
             console.log(slug + product_slug)
 
             if (res.data.status === 200) {
+                localStorage.setItem("slug_product",product_slug)
                 console.log('zabiiiiiiii')
                 setproduct({ ...res.data.data })
                 product_details={...res.data.data}
@@ -79,6 +80,7 @@ const ViewProduct = (props) => {
 
             if(res.data.status===200){
                  localStorage.setItem("added_to_cart",true)
+                 props.incrementQte()
                  swal("success",res.data.message,"success")
             }else if(res.data.status===401){
                 swal("Error",res.data.message,"error")

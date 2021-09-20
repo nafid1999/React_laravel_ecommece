@@ -63,7 +63,7 @@ const FrontendMainLayout = (props) => {
                 <Route path="/contact" name="contact" exact={true} component={Contact} />
                 <Route path="/collections" name="collections" exact={true} component={Collections} />
                 <Route path="/collections/:slug"  exact={true} component={ViewCategory} />
-                <Route path="/collections/:slug/:product_slug"  exact={true} component={ViewProduct} />
+                <Route path="/collections/:slug/:product_slug"  exact={true} component={()=><ViewProduct incrementQte={incrementQte} />} />
                 <Route path="/cart"  exact={true} component={()=><ViewCart decrementQte={decrementQte} />} />
                 <Route path="/checkout"  exact={true} component={()=><CheckOut resetQte={resetQte} />} />
                 <Route path="/serverError"  exact={true} component={ServerError} />
